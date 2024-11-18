@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.list
 
 import com.example.myapplication.data.repository.DataRepository
-import com.example.myapplication.data.repository.DataRepositoryHardCode
 import com.example.myapplication.ui.utils.BaseViewModel
 
 fun listViewModel(dataRepository: DataRepository) =
@@ -10,11 +9,6 @@ fun listViewModel(dataRepository: DataRepository) =
         initialEvents = setOf(ListMessage.Load),
         processInputEvent = { event, state -> processInputEvent(dataRepository, event, state) }
     )
-
-object ListViewModel {
-    val viewModel: BaseViewModel<ListState, ListOutputs, ListMessage> =
-        listViewModel(DataRepositoryHardCode()) // Это потом будет через DI
-}
 
 private suspend fun processInputEvent(
     dataRepository: DataRepository,

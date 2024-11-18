@@ -17,9 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.data.entities.Item
-import com.example.myapplication.ui.utils.BaseViewModel
 import com.example.myapplication.ui.utils.SubscribeEvents
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -30,9 +30,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun DetailsUI(
     item: Item,
     navigator: DestinationsNavigator,
-    viewModel: BaseViewModel<DetailsState, DetailsOutputs, DetailsMessage> =
-        detailsViewModel(DetailsState(item)) // Это потом будет через DI
 ) {
+    val viewModel = viewModel { detailsViewModel(DetailsState(item)) }
     val state by viewModel.screenState.collectAsStateWithLifecycle()
     viewModel.SubscribeEvents {
         when (it) {

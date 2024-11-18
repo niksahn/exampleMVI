@@ -17,9 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
+import com.example.myapplication.data.repository.DataRepositoryHardCode
 import com.example.myapplication.ui.destinations.DetailsUIDestination
-import com.example.myapplication.ui.utils.BaseViewModel
 import com.example.myapplication.ui.utils.SubscribeEvents
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -29,9 +30,9 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination
 @Composable
 fun ListUi(
-    navigator: DestinationsNavigator,
-    viewModel: BaseViewModel<ListState, ListOutputs, ListMessage> = ListViewModel.viewModel
+    navigator: DestinationsNavigator
 ) {
+    val viewModel = viewModel { listViewModel(DataRepositoryHardCode()) }
     val state by viewModel.screenState.collectAsStateWithLifecycle()
     viewModel.SubscribeEvents {
         when (it) {
